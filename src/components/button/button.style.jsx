@@ -11,7 +11,7 @@ font-size: 15px;
 background-color: black;
 color: white;
 text-transform: uppercase;
-font-family: 'Open Sans Condensed';
+font-family: 'Sofia Sans Condensed', sans-serif;
 font-weight: bolder;
 border: none;
 cursor: pointer;
