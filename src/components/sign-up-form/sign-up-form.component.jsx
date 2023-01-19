@@ -4,7 +4,7 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import './sign-up.style.scss'
 
-import { UserContext } from "../../contexts/user-context";
+
 
 const defaultFormFields = {
     displayName: '',
@@ -25,7 +25,7 @@ const SignUpForm = () => {
     const handleSubmit = async (event) =>{
         event.preventDefault();
 
-        if (password != confirmPassword){
+        if (password !== confirmPassword){
             alert("Password do not match")
             return;
         }
@@ -37,7 +37,7 @@ const SignUpForm = () => {
             resetFormFields();
         }
         catch(error){
-            if(error.code = 'auth/email-already-in-use'){
+            if(error.code === 'auth/email-already-in-use'){
                 alert('cannot create user, email already in use');
             }
             console.log("user creation encountered an error", error)
