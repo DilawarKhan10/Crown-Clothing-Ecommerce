@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
@@ -21,12 +21,6 @@ import {
     getDocs
 } from 'firebase/firestore'
 
-// import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDMVLGZLhNV_Y5wA9RFJ3z14JuOWgn4QkQ",
   authDomain: "crwn-clothing-db-e00a0.firebaseapp.com",
@@ -78,13 +72,9 @@ export const getCategoriesAndDocuments = async () => {
     const q = query(collectionRef);
 
     const querySnapshot = await getDocs(q);
-    const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-        const {title, items} = docSnapshot.data();
-        acc[title.toLowerCase()] = items;
-        return acc;
-    }, {});
-
-    return categoryMap;
+    return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+    
+   
 }
 
 export const createUserDocumentFromAuth = async (userAuth, additionalInformation = {}) =>{
@@ -131,3 +121,16 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) => 
 
 onAuthStateChanged(auth, callback)
+
+export const getCurrentUser = () => {
+    return new Promise((resolve, reject) =>{
+        const unsbscribe = onAuthStateChanged(
+            auth,
+            (userAuth) => {
+                unsbscribe();
+                resolve(userAuth);
+            },
+            reject
+        )
+    })
+}
